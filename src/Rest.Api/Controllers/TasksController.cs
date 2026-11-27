@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 [Produces("application/json")]
 public class TasksController : ControllerBase
 {

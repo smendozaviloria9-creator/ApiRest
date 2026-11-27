@@ -30,7 +30,7 @@ jobs:
         run: dotnet test --no-build --configuration Release --verbosity normal
 
       - name: Publish API
-        run: dotnet publish src/Api/Api.csproj --configuration Release --output ./publish
+        run: dotnet publish src/Rest.Api/Rest.Api.csproj --configuration Release --output ./publish
 
       - name: Upload publish artifact
         uses: actions/upload-artifact@v5

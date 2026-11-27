@@ -4,31 +4,31 @@ API REST desarrollada con **.NET 10**, **Clean Architecture**, **Entity Framewor
 
 ## Arquitectura del proyecto
 
-- `src/Domain`: Entidades (`Project`, `TaskItem`), enums (`TaskItemStatus`, `TaskPriority`) e interfaces de repositorio (`IProjectRepository`, `ITaskRepository`).
-- `src/Application`: DTOs con validaciones (`DataAnnotations`), excepciones de negocio (`NotFoundException`, `BusinessRuleException`), interfaces de servicio y lógica de negocio (`ProjectService`, `TaskService`).
-- `Infrastructure`: `AppDbContext` (EF Core + Npgsql) e implementaciones de repositorios (`ProjectRepository`, `TaskRepository`).
-- `src/Api`: Controladores (`ProjectsController`, `TasksController`), middleware global de excepciones (`ExceptionHandlingMiddleware`), configuración de Swagger y endpoint `/health`.
-- `src/Rest.Tests`: Pruebas unitarias con **NUnit** y **Moq**.
+- `src/Rest.Domain`: Entidades (`Project`, `TaskItem`), enums (`TaskItemStatus`, `TaskPriority`) e interfaces de repositorio (`IProjectRepository`, `ITaskRepository`).
+- `src/Rest.Application`: DTOs con validaciones (`DataAnnotations`), excepciones de negocio (`NotFoundException`, `BusinessRuleException`), interfaces de servicio y lógica de negocio (`ProjectService`, `TaskService`).
+- `src/Rest.Infrastructure`: `AppDbContext` (EF Core + Npgsql) e implementaciones de repositorios (`ProjectRepository`, `TaskRepository`).
+- `src/Rest.Api`: Controladores (`ProjectsController`, `TasksController`), middleware global de excepciones (`ExceptionHandlingMiddleware`), configuración de Swagger y endpoint `/health`.
+- `tests/Rest.Tests`: Pruebas unitarias con **NUnit** y **Moq**.
 - `.github/workflows/ci-cd.yml`: Pipeline de CI/CD con GitHub Actions.
 
 ## Endpoints principales
 
-### Proyectos (`/api/projects`)
-- `GET /api/projects` — Lista todos los proyectos incluyendo total de tareas, completadas y porcentaje de avance.
-- `GET /api/projects/{id}` — Obtiene un proyecto por ID con su porcentaje de avance.
-- `GET /api/projects/{id}/tasks` — Lista todas las tareas de un proyecto.
-- `POST /api/projects` — Crea un proyecto (valida que `EndDate >= StartDate`).
-- `PUT /api/projects/{id}` — Actualiza un proyecto.
-- `DELETE /api/projects/{id}` — Elimina un proyecto (impide eliminar si tiene tareas pendientes o en progreso).
+### Proyectos (`/api/v1/projects`)
+- `GET /api/v1/projects` — Lista todos los proyectos incluyendo total de tareas, completadas y porcentaje de avance.
+- `GET /api/v1/projects/{id}` — Obtiene un proyecto por ID con su porcentaje de avance.
+- `GET /api/v1/projects/{id}/tasks` — Lista todas las tareas de un proyecto.
+- `POST /api/v1/projects` — Crea un proyecto (valida que `EndDate >= StartDate`).
+- `PUT /api/v1/projects/{id}` — Actualiza un proyecto.
+- `DELETE /api/v1/projects/{id}` — Elimina un proyecto (impide eliminar si tiene tareas pendientes o en progreso).
 
-### Tareas (`/api/tasks`)
-- `GET /api/tasks?status=&priority=` — Lista y filtra tareas por estado (`Pendiente`, `EnProgreso`, `Completada`) y/o prioridad (`Baja`, `Media`, `Alta`).
-- `GET /api/tasks/overdue` — Lista tareas vencidas que no estén completadas.
-- `GET /api/tasks/{id}` — Obtiene una tarea por ID.
-- `POST /api/tasks` — Crea una tarea asociada a un proyecto (valida que `DueDate >= Project.StartDate`).
-- `PUT /api/tasks/{id}` — Actualiza una tarea.
-- `PATCH /api/tasks/{id}/status` — Cambia el estado de una tarea.
-- `DELETE /api/tasks/{id}` — Elimina una tarea.
+### Tareas (`/api/v1/tasks`)
+- `GET /api/v1/tasks?status=&priority=` — Lista y filtra tareas por estado (`Pendiente`, `EnProgreso`, `Completada`) y/o prioridad (`Baja`, `Media`, `Alta`).
+- `GET /api/v1/tasks/overdue` — Lista tareas vencidas que no estén completadas.
+- `GET /api/v1/tasks/{id}` — Obtiene una tarea por ID.
+- `POST /api/v1/tasks` — Crea una tarea asociada a un proyecto (valida que `DueDate >= Project.StartDate`).
+- `PUT /api/v1/tasks/{id}` — Actualiza una tarea.
+- `PATCH /api/v1/tasks/{id}/status` — Cambia el estado de una tarea.
+- `DELETE /api/v1/tasks/{id}` — Elimina una tarea.
 
 ### Documentación y Salud
 - `/` — Interfaz interactiva de **Swagger UI**.
@@ -44,7 +44,7 @@ API REST desarrollada con **.NET 10**, **Clean Architecture**, **Entity Framewor
    ```
 3. Ejecutar la API:
    ```bash
-   dotnet run --project src/Api/Api.csproj
+   dotnet run --project src/Rest.Api/Rest.Api.csproj
    ```
 
 ## Despliegue en Azure y CI/CD

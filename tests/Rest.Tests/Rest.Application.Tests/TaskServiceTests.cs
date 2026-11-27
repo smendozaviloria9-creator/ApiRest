@@ -6,7 +6,7 @@ using Domain.Enums;
 using Domain.Interfaces;
 using Moq;
 
-namespace Rest.Tests;
+namespace Rest.Tests.Application;
 
 [TestFixture]
 public class TaskServiceTests
